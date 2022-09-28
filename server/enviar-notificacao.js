@@ -9,8 +9,9 @@ exports.enviarNotificacao = (req, res) => {
       icon: '/src/assets/icons/icon-72x72.png',
       title: 'Web Push',
       body: 'Teste de envio de Push Notification!!',
-      vibrate: [100, 50, 100],
-    }
+      vibrate: [200, 100, 200],
+      sound: "default"
+    },
   }
 
   Promise.all(USUARIOS_SUBSCRIPTIONS.map(sub => {
