@@ -20,9 +20,8 @@ export class PushNotificationService {
 
     this.swPush.notificationClicks.subscribe((result) => {
       console.log('clicou na notificação', result);
-      if (result.action === 'listar') {
-        console.log([result.action])
-        // this.router.navigate([result.action]);
+      if (result.action === 'new-page') {
+        window.open('https://open.spotify.com/')
       }
     });
 

@@ -10,7 +10,15 @@ exports.enviarNotificacao = (req, res) => {
       title: 'Web Push Notification',
       body: 'Teste de envio de Push Notification!!',
       vibrate: [200, 100, 200],
-      sound: "default"
+      sound: 'default',
+      data: {
+        dateOfArrival: Date.now(),
+        primaryKey: 1
+      },
+      actions: [{
+        action: 'new-page',
+        title: 'Acessar o site do spotify'
+      }]
     },
   }
 
