@@ -7,7 +7,7 @@ exports.enviarNotificacao = (req, res) => {
   const notificationPayload = {
     notification: {
       icon: '/src/assets/icons/icon-72x72.png',
-      title: 'Web Push',
+      title: 'Web Push Notification',
       body: 'Teste de envio de Push Notification!!',
       vibrate: [200, 100, 200],
       sound: "default"
@@ -15,8 +15,6 @@ exports.enviarNotificacao = (req, res) => {
   }
 
   Promise.all(USUARIOS_SUBSCRIPTIONS.map(sub => {
-    if(!sub) sub = customSub;
-
     console.log('Nova notificação')
     webpush.sendNotification(sub, JSON.stringify(notificationPayload))
   }))

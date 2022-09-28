@@ -14,6 +14,9 @@ export class PushNotificationService {
     private swPush: SwPush,
     // private router: Router
   ) {
+    if (this.swPush.isEnabled) {
+      this.adicionaPushSubscriber();
+    }
 
     this.swPush.notificationClicks.subscribe((result) => {
       console.log('clicou na notificação', result);
@@ -22,6 +25,8 @@ export class PushNotificationService {
         // this.router.navigate([result.action]);
       }
     });
+
+    this.swPush.messages.subscribe((message) => console.log(message));
   }
 
   public adicionaPushSubscriber() {
@@ -29,12 +34,10 @@ export class PushNotificationService {
       serverPublicKey: environment.VAPID_PUBLIC_KEY
     })
     .then(sub => {
-      console.log('Usuário inscrito', sub);
-      this.enviar(sub)
-      // this.http.post(environment.API + '/api/notificacao', sub).subscribe({
-      //   next: () => console.log('Inscrição adicionada com sucesso!'),
-      //   error: (err) => console.error('Erro ao adicionar inscrição.', err)
-      // });
+      this.http.post(environment.API + '/api/notificacao', sub).subscribe({
+        next: () => console.log('Inscrição adicionada com sucesso!', sub),
+        error: (err) => console.error('Erro ao adicionar inscrição.', err)
+      });
 
       return sub;
     })
@@ -42,8 +45,8 @@ export class PushNotificationService {
     .catch(err => console.error('Erro ao se inscrever', err));
   }
 
-  public enviar(sub: any) {
-    this.http.post(environment.API + '/api/notificacao/enviar', sub).subscribe({
+  public enviar() {
+    this.http.post(environment.API + '/api/notificacao/enviar', null).subscribe({
       next: () => console.log('Notificação enviada com sucesso!'),
       error: (err) => console.error('Erro ao enviar notificação.', err)
     });
