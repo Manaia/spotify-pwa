@@ -43,10 +43,11 @@ app.post('/api/notificacao/enviar', (req, res) => {
   
 
   let payload = JSON.stringify({
-    "notification": {
-      "title": "Webpush Notification",
-      "body": "Teste de Webpush",
-      "icon": "https://yt3.ggpht.com/a-/AAuE7mCxr-4W53FAxBRcKR0iDk_vPCSAmW-QKFGaFA=s88-mo-c-c0xffffffff-rj-k-no"
+    notification: {
+      title: 'Webpush Notification',
+      body: 'Teste de Webpush',
+      icon: 'https://yt3.ggpht.com/a-/AAuE7mCxr-4W53FAxBRcKR0iDk_vPCSAmW-QKFGaFA=s88-mo-c-c0xffffffff-rj-k-no',
+      vibrate: [100, 50, 100],
     }
   });
 
