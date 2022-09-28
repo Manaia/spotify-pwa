@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
+import { SwPush, SwUpdate } from '@angular/service-worker';
 import { PushNotificationService } from 'src/services/push-notification.service';
 
 @Component({
@@ -10,21 +10,26 @@ import { PushNotificationService } from 'src/services/push-notification.service'
 export class AppComponent {
   title = 'pwa';
   
-  constructor(private push: PushNotificationService, private swUpdate: SwUpdate) {}
+  constructor(private push: PushNotificationService, private swUpdate: SwUpdate, private swPush: SwPush) {}
 
   ngOnInit() {
+    // this.push.adicionaPushSubscriber();
+
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.subscribe(() => {
+      this.swUpdate.available.subscribe(() => {
         if (confirm('Nova versão disponível. Deseja recarregar a página?')) {
           window.location.reload();
         }
       });
     }
 
-    this.push.adicionaPushSubscriber();
+    this.swPush.messages.subscribe((message) => console.log(message))
   }
 
   enviarNotificacao() {
-    this.push.enviar();
+    if (this.swPush.isEnabled) {
+      this.push.adicionaPushSubscriber();
+    }
+    // this.push.enviar();
   }
 }
