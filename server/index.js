@@ -47,8 +47,10 @@ app.post('/api/notificacao/enviar', (req, res) => {
       title: 'Webpush Notification',
       body: 'Teste de Webpush',
       icon: 'https://yt3.ggpht.com/a-/AAuE7mCxr-4W53FAxBRcKR0iDk_vPCSAmW-QKFGaFA=s88-mo-c-c0xffffffff-rj-k-no',
-      vibrate: [100, 50, 100],
-    }
+      vibrate: [200, 100, 200],
+      sound: "default"
+    },
+    sound: "default"
   });
 
   Promise.resolve(webpush.sendNotification(sub, payload))
